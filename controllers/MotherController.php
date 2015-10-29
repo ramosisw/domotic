@@ -73,11 +73,10 @@ class MotherController extends Controller
     {
 
         $orden = $this->getOrders($id);
-
-        /*return $this->render('view', [
+        return $this->render('view', [
             'model' => $this->findModel($id),
             'orden' => $orden,
-        ]);*/
+        ]);
     }
 
     /**
@@ -151,65 +150,24 @@ class MotherController extends Controller
         $tareas = Tarea::find()->where(['id_mother'=>$id_mother])->all();
         $personas = Personas::find()->where(['id_mother'=>$id_mother])->orderBy('orden')->all();
 
-        for ($a=1; $a <30 ; $a++) { 
-            
-            $ini = strtotime('2015-01-01');
-            $fin = strtotime(date('Y')."-".date('m').'-'.date('d'));
-            $fin = strtotime('2015-10-'.$a);
-            $day = floor( ($fin - $ini) / (60*60*24) );
-            //$day = date('Y');
-            //$day += date('d');
-            //$day += date('m');
-            //$day += 11;
-            //$day += 1;
+        $ini = strtotime('2015-01-01');
+        //$fin = strtotime('2015-10-31');
+        $fin = strtotime(date('Y')."-".date('m').'-'.date('d'));
+        $day = floor( ($fin - $ini) / (60*60*24) );
+        //$day = date('Y');
+        //$day += date('d');
+        //$day += date('m');
+        //$day += 11;
+        //$day += 1;
 
-            
-            $resultad=null;
-            $last = 0;
-            for ($i=0; $i < count($tareas); $i++) { 
-                if($i==0)
-                    $orden = $day % count($tareas[$i]->relPersonaTareas);
-                if(count($tareas)!=count($tareas[$i]->relPersonaTareas)){
-                    $orden = $day % count($tareas[$i]->relPersonaTareas);
-                    for ($j=0; $j < count($tareas[$i]->relPersonaTareas) ; $j++) { 
-                        $orden = $orden % count($tareas[$i]->relPersonaTareas)+1;
-                    }
-                    $last=substr("$day", -1)*1;
-                    if($last>=3 && $last<=5){
-                        switch ($orden) {
-                            case 1:$orden = 3;break;
-                            case 2:$orden = 1;break;
-                            case 3:$orden = 2;break;
-                        }
-                    }else if($last>=1 && $last<4){
-                        switch ($orden) {
-                            case 1:$orden = 2;break;
-                            case 2:$orden = 3;break;
-                            case 3:$orden = 1;break;
-                        }
-                    }else if($last>=6 && $last<8){
-                        switch ($orden) {
-                            case 1:$orden = 3;break;
-                            case 2:$orden = 1;break;
-                            case 3:$orden = 2;break;
-                        }
-                    }
-                }else{
-                    $orden = $orden % count($tareas[$i]->relPersonaTareas)+1;
-                }
-                //$model[$i] = new Orden();
-                //$model[$i]->tarea = $tareas[$i]->nombre;
-                //$model[$i]->tarea = $tareas[$i]->nombre.' - '.$orden.' - '.count($tareas[$i]->relPersonaTareas);
-                //$model[$i]->nombre = $personas[$orden-1]->nombre;
-                $resultad[]=$orden;
-            }
-            $resultado[$day]=$resultad[0].' - '.$resultad[1].' - '.$resultad[2];
+        $orden = $day % count($personas);
+        for ($i=0; $i < count($tareas); $i++) { 
+            $orden = $orden % count($personas) + 1;
+            $model[$i] = new Orden();
+            //$model[$i]->tarea = $day.' - '.$orden.' - '.$fin;
+            $model[$i]->tarea = $tareas[$i]->nombre;
+            $model[$i]->nombre = $personas[$orden-1]->nombre;
         }
-        echo "<pre>";
-        print_r($resultado);
-        echo("</pre>");
-        return [];
-
         $provider = new ArrayDataProvider([
                             'allModels' => $model,
                         ]);
