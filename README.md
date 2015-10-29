@@ -1,4 +1,4 @@
-Yii 2 Basic Project Template
+Domotic | Yii 2 Basic Project Template
 ============================
 
 Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
@@ -25,7 +25,7 @@ DIRECTORY STRUCTURE
       tests/              contains various tests for the basic application
       vendor/             contains dependent 3rd-party packages
       views/              contains view files for the Web application
-      web/                contains the entry script and Web resources
+      www/                contains the entry script and Web resources
 
 
 
@@ -40,8 +40,8 @@ INSTALLATION
 
 ### Install from an Archive File
 
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
+Extract the archive file downloaded from [ramosisw](https://github.com/ramosisw/domotic/archive/master.zip) to
+a directory named `domotic` that is directly under the Web root.
 
 Set cookie validation key in `config/web.php` file to some random secret string:
 
@@ -55,27 +55,7 @@ Set cookie validation key in `config/web.php` file to some random secret string:
 You can then access the application through the following URL:
 
 ~~~
-http://localhost/basic/web/
-~~~
-
-
-### Install via Composer
-
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-You can then install this project template using the following command:
-
-~~~
-php composer.phar global require "fxp/composer-asset-plugin:~1.0.0"
-php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
+http://localhost/domotic/www/
 ~~~
 
 
@@ -89,7 +69,7 @@ Edit the file `config/db.php` with real data, for example:
 ```php
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+    'dsn' => 'mysql:host=localhost;dbname=domotic',
     'username' => 'root',
     'password' => '1234',
     'charset' => 'utf8',
